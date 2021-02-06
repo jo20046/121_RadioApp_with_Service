@@ -23,10 +23,10 @@ public class RadioActivity extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        webView = new WebView(this);
+        setContentView(R.layout.activity_radio);
+        webView = (WebView) findViewById(R.id.webview);
         webView.setWebViewClient(new WebViewClient());
         webView.loadUrl(getIntent().getExtras().getString("URL"));
-        setContentView(webView);
     }
 
     @Override
