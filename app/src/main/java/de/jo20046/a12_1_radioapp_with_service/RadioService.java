@@ -30,6 +30,19 @@ public class RadioService extends Service {
     public void onCreate() {
         Log.d(tag, "onCreate() - Service");
         super.onCreate();
+
+//        Intent notificationIntent = new Intent(this, MainActivity.class);
+//
+//        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
+//                notificationIntent, 0);
+//
+//        Notification notification = new NotificationCompat.Builder(this)
+////                .setSmallIcon(R.mipmap.app_icon)
+//                .setContentTitle("My Awesome App")
+//                .setContentText("Doing some work...")
+//                .setContentIntent(pendingIntent).build();
+//
+//        startForeground(1337, notification);
     }
 
     @Nullable

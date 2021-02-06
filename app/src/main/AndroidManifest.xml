@@ -3,6 +3,7 @@
     package="de.jo20046.a12_1_radioapp_with_service">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:allowBackup="true"
@@ -19,8 +20,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RadioActivity"/>
-        <service android:name=".RadioService"/>
+        <activity android:name=".RadioActivity" />
+
+        <service android:name=".RadioService" />
     </application>
 
 </manifest>
