@@ -14,6 +14,8 @@ public class RadioService extends Service {
     private final IBinder myBinder = new MyBinder();
     private MediaPlayer mp;
     private String stream;
+    private boolean mpPaused = false;
+    private boolean mpStopped = false;
     String tag = "mytag";
 
     @Override
@@ -40,25 +42,52 @@ public class RadioService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        stopMediaPlayer();
+        releaseMediaplayer();
     }
 
     public void startMediaPlayer() {
-        stopMediaPlayer();
+//        releaseMediaplayer();
         mp = new MediaPlayer();
         try {
             mp.setDataSource(stream);
 
             // Version "blocking"
-            mp.prepare();
-            mp.start();
+//            mp.prepare();
+//            mp.start();
+
+            // Version non-blocking
+            mp.setOnPreparedListener(MediaPlayer::start);
+            mp.prepareAsync();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     public void stopMediaPlayer() {
+        mp.stop();
+        mpStopped = true;
+    }
+
+    public void pauseMediaPlayer() {
+        mp.pause();
+        mpPaused = true;
+    }
+
+    public void restartMediaPlayer() {
+        if (!mp.isPlaying()) {
+            if (mpPaused) {
+                Log.d(tag, "Restart Mediaplayer from Paused state");
+                mp.start();
+                mpPaused = false;
+            } else if (mpStopped) {
+                Log.d(tag, "Restart Mediaplayer from Stopped state");
+                mp.prepareAsync();
+                mpStopped = false;
+            }
+        }
+    }
+
+    public void releaseMediaplayer() {
         if (mp != null) mp.release();
     }
 

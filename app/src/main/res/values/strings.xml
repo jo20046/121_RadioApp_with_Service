@@ -2,5 +2,6 @@
     <string name="app_name">12–1-RadioApp_with_Service</string>
     <string name="stop">Stop</string>
     <string name="play">Play</string>
+    <string name="_continue">Continue</string>
     <string name="pause">Pause</string>
 </resources>

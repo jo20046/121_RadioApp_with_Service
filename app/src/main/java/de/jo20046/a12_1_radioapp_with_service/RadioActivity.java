@@ -10,6 +10,7 @@ import android.os.IBinder;
 import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 
 import androidx.annotation.Nullable;
 
@@ -27,6 +28,37 @@ public class RadioActivity extends Activity {
         webView = (WebView) findViewById(R.id.webview);
         webView.setWebViewClient(new WebViewClient());
         webView.loadUrl(getIntent().getExtras().getString("URL"));
+
+        Button btnStop = (Button) findViewById(R.id.btn_stop);
+        Button btnPlay = (Button) findViewById(R.id.btn_play);
+        Button btnPause = (Button) findViewById(R.id.btn_pause);
+        btnStop.setOnClickListener(v -> {
+            if (serviceBound) {
+                radioService.stopMediaPlayer();
+                btnStop.setEnabled(false);
+                btnPlay.setEnabled(true);
+                btnPlay.setText(R.string.play);
+                btnPause.setEnabled(false);
+            }
+        });
+        btnPlay.setOnClickListener(v -> {
+            if (serviceBound) {
+                radioService.restartMediaPlayer();
+                btnStop.setEnabled(true);
+                btnPlay.setEnabled(false);
+                btnPlay.setText(R.string.play);
+                btnPause.setEnabled(true);
+            }
+        });
+        btnPause.setOnClickListener(v -> {
+            if (serviceBound) {
+                radioService.pauseMediaPlayer();
+                btnStop.setEnabled(false);
+                btnPlay.setEnabled(true);
+                btnPlay.setText(R.string._continue);
+                btnPause.setEnabled(false);
+            }
+        });
     }
 
     @Override
